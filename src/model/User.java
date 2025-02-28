@@ -1,7 +1,7 @@
 package model;
 
 public class User {
-	private int id;
+	protected int id;
 	
 	private static int counter = 0;
 	
