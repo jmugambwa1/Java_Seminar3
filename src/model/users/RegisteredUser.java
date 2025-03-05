@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import model.IPostCreate;
+import service.MainService;
 
 public abstract class RegisteredUser extends User implements IPostCreate{
 	private String username;
@@ -29,7 +30,7 @@ public abstract class RegisteredUser extends User implements IPostCreate{
 	}
 	
 	public void setPassword(String inputPassword) {
-		if(inputPassword != null && inputPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\\]).{8,32}$"))
+		if(inputPassword != null && inputPassword.matches("[A-Za-z0-9?*#.:;]{6,20}"))
 		{
 			try {
 				MessageDigest md = MessageDigest.getInstance("MD5");
@@ -64,6 +65,25 @@ public abstract class RegisteredUser extends User implements IPostCreate{
 		return super.toString() + ": " + username + " (" + password+ ")";
 	}
 	
+	public void followUser(String username) throws Exception{
+		if(username == null) {
+			throw new Exception("Username should not be null");
+		}
+		
+		for(User tempU : MainService.getAllUsers()) {
+			if(tempU instanceof RegisteredUser) {
+				RegisteredUser tempRU = (RegisteredUser)tempU;
+				if(tempRU.getUsername().equals(username))
+				{
+					if(tempRU instanceof PrivateUser) {
+						PrivateUser tempPU = (PrivateUser)tempRU;
+						tempPU.getFollowers().add(this);
+					}
+				}
+			}
+		}
+		
+	}
 	
 	
 	

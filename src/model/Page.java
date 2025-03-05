@@ -43,11 +43,22 @@ public class Page {
 			description = "No description";
 		}
 	}
-	
 	//No setters for arraylist because they are initialized already at the start
 	
 	
+	public Page() {
+		setTitle("Test");
+		setDescription("page");
+	}
 	
+	public Page(String inputTitle, String inputDescription) {
+		setTitle(inputTitle);
+		setDescription(inputDescription);
+	}
+	
+	public String toString() {
+		return title + " (" + description + ")";
+	}
 	
 	
 	
