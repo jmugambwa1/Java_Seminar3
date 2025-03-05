@@ -1,7 +1,9 @@
-package model;
+package model.users;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import model.IPostCreate;
 
 public abstract class RegisteredUser extends User implements IPostCreate{
 	private String username;
